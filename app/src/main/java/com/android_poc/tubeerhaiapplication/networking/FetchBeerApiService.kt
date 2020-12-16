@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface FetchBeerApiService {
+
     @GET(AppConstants.END_POINT)
     fun getPagedListBeersFromNetwork(@Query("page") page:Int) : Call<List<BeerRootRespTO>>
 }
