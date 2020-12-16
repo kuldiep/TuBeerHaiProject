@@ -1,4 +1,5 @@
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /*
 Copyright (c) 2020 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com
@@ -35,4 +36,4 @@ public data class BeerRootRespTO(
 	@SerializedName("food_pairing") val food_pairing: List<String>,
 	@SerializedName("brewers_tips") val brewers_tips: String,
 	@SerializedName("contributed_by") val contributed_by: String
-)
+):Serializable
