@@ -2,17 +2,29 @@ package com.android_poc.tubeerhaiapplication.viewmodel
 
 import BeerRootRespTO
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import com.android_poc.tubeerhaiapplication.repository.TuBeerHaiDataSourceRepository
+import androidx.lifecycle.MutableLiveData
+import com.android_poc.tubeerhaiapplication.networking.ApiCallbackListener
 
-class BeerListingViewModel : ViewModel() {
-    private val tuBeerHaiDataSourceRepository = TuBeerHaiDataSourceRepository()
+class BeerListingViewModel : BaseViewModel() {
+
+    var mutableLiveDataApiCallbackListenerFlag = MutableLiveData<Boolean>()
 
     fun makeNetworkCallFromRepository(pageSize:Int){
-        tuBeerHaiDataSourceRepository.getFirstPageOfBeerFromNetwork(pageSize)
+
+        val apiCallbackListener = object :ApiCallbackListener{
+            override fun isApiCallSuccessfull(flag: Boolean) {
+                mutableLiveDataApiCallbackListenerFlag.value = flag
+            }
+        }
+        getRepositoryInstance().getFirstPageOfBeerFromNetwork(pageSize,apiCallbackListener)
     }
 
     fun getBeerListFromRepository():LiveData<List<BeerRootRespTO>>{
-        return tuBeerHaiDataSourceRepository.getMutableLiveBeerRootRespTOList()
+        return getRepositoryInstance().getMutableLiveBeerRootRespTOList()
     }
+
+    fun getApiCallBackListenerLiveData():LiveData<Boolean>{
+        return mutableLiveDataApiCallbackListenerFlag
+    }
+
 }

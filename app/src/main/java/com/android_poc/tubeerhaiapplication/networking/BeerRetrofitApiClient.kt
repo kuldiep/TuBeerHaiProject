@@ -10,7 +10,7 @@ object BeerRetrofitApiClient {
     private val retrofit = Retrofit.Builder()
         .baseUrl(AppConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        //.client(httpLoggingInterceptorClient())
+        .client(httpLoggingInterceptorClient())
         .build()
 
     fun <T> buildService(service: Class<T>): T{
